@@ -3,7 +3,7 @@ from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives import serialization
 from pathlib import Path
 
-def generate_key( password:str):
+def generate_key(password):
     #create a folder keys if not exit
     Path('./keys').mkdir(parents=True,exist_ok=True)
     try:

@@ -46,12 +46,33 @@ def Decrypt_File(input_direct, public_key_pem, private_key_pem_with_password ):
         public_key = Load_pem.getPublickey(public_key_pem)
         checkSign = Load_pem.CheckValueSignature(public_key, signature, ouput_file)
         if checkSign:
-            print("Integrity")
+            return "Successfull Decrypt, Integrity, See : "  + ouput_file
         else:
-            print("Not Intergrity")
+            return "Successfull Decrypt, Not Integrity, See : "  + ouput_file
     except Exception as e:
-        print("Error when Decrypted")
-        print("Message: ", e)
+        return "Error with Decrypted, Message: " + e
+
+def CheckIntergity(decrypted_file, encrypted_file, public_key_of_sender):
+    try:
+        #Strip Data
+        strip_chars = b"***"
+
+        #Encrypted
+        with open( encrypted_file ,"rb") as f:
+            encrypted = f.read()
+
+        #Split_encrypted
+        (Nothings, encrypted_key, signature, encrypted_data) = encrypted.split(strip_chars)
+
+        public_key = Load_pem.getPublickey(public_key_of_sender)
+        checkSign = Load_pem.CheckValueSignature(public_key, signature, decrypted_file)
+
+        if checkSign:
+            return "Integrity"
+        else:
+            return "Warning: not Intergrity"
+    except Exception as e:
+        return "Error with check Intergrity, Message" + e
 
     
 

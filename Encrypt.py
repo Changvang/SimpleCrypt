@@ -48,7 +48,6 @@ def Encrypt_File(Fernet_key_file, input_direct, public_key_pem, private_key_pem_
 
         with open(ouput_file, 'wb') as f:
             f.write(encrypted)
-        print("Successfull Encrypted")
+        return "Successfull Encrypted, Output file: " + ouput_file
     except Exception as e:
-        print("Error when Encrypted")
-        print("Message: ", e)
+        return "Error when Encrypt, Message: " + e
